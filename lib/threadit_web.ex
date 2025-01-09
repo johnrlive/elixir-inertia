@@ -42,6 +42,7 @@ defmodule ThreaditWeb do
         formats: [:html, :json],
         layouts: [html: ThreaditWeb.Layouts]
 
+      import Inertia.Controller
       import Plug.Conn
 
       unquote(verified_routes())
@@ -68,6 +69,8 @@ defmodule ThreaditWeb do
   def html do
     quote do
       use Phoenix.Component
+
+      import Inertia.HTML
 
       # Import convenience functions from controllers
       import Phoenix.Controller,

@@ -2,8 +2,8 @@ defmodule ThreaditWeb.PageController do
   use ThreaditWeb, :controller
 
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, :home, layout: false)
+    conn
+    |> assign_prop(:text, "Hello world from React!")
+    |> render_inertia("Home")
   end
 end
