@@ -37,8 +37,17 @@ defmodule Threadit.Users do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def get_user_by_username(username) when is_binary(username) do
-    Repo.get_by(User, username: username)
+  def get_user_by_username(username, opts \\ []) when is_binary(username) do
+    include_password = Keyword.get(opts, :include_password, false)
+
+    query =
+      case include_password do
+        true -> from User, select: [:id, :username, :hashed_password, :inserted_at, :updated_at]
+        false -> User
+      end
+
+    query
+    |> Repo.get_by(username: username)
   end
 
   @doc """
@@ -119,7 +128,19 @@ defmodule Threadit.Users do
     User.changeset(user, attrs)
   end
 
-  def hide_password(%User{} = user) do
+  def valid_password?(username, password) when is_binary(username) and is_binary(password) do
+    user = get_user_by_username(username, include_password: true)
+
+    case user do
+      nil ->
+        Bcrypt.no_user_verify()
+
+      %User{} = user ->
+        Bcrypt.verify_pass(password, user.hashed_password)
+    end
+  end
+
+  defp hide_password(%User{} = user) do
     %User{user | password: nil, hashed_password: nil}
   end
 end

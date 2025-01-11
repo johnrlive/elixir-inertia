@@ -1,5 +1,5 @@
 defmodule Threadit.UsersTest do
-  use Threadit.DataCase
+  use Threadit.DataCase, async: true
 
   alias Threadit.Users
 
@@ -30,6 +30,8 @@ defmodule Threadit.UsersTest do
 
       assert {:ok, %User{} = user} = Users.create_user(valid_attrs)
       assert user.username == valid_attrs.username
+      assert is_nil(user.password)
+      assert is_nil(user.hashed_password)
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -46,6 +48,8 @@ defmodule Threadit.UsersTest do
 
       assert {:ok, %User{} = user} = Users.update_user(user, update_attrs)
       assert user.username == update_attrs.username
+      assert is_nil(user.password)
+      assert is_nil(user.hashed_password)
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -63,6 +67,16 @@ defmodule Threadit.UsersTest do
     test "change_user/1 returns a user changeset" do
       user = user_fixture()
       assert %Ecto.Changeset{} = Users.change_user(user)
+    end
+
+    test "valid_password?/2 returns true if the password is valid" do
+      user = user_fixture()
+      assert Users.valid_password?(user.username, "password")
+    end
+
+    test "valid_password?/2 returns false if the password is invalid" do
+      user = user_fixture()
+      refute Users.valid_password?(user.username, "invalid_password")
     end
   end
 end
