@@ -37,16 +37,12 @@ defmodule Threadit.Users do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def get_user_by_username(username, opts \\ []) when is_binary(username) do
-    include_password = Keyword.get(opts, :include_password, false)
+  def get_user_by_username(username) do
+    Repo.get_by(User, username: username)
+  end
 
-    query =
-      case include_password do
-        true -> from User, select: [:id, :username, :hashed_password, :inserted_at, :updated_at]
-        false -> User
-      end
-
-    query
+  def get_user_by_username(username, include_password: true) do
+    from(User, select: [:id, :username, :hashed_password, :inserted_at, :updated_at])
     |> Repo.get_by(username: username)
   end
 
@@ -66,10 +62,7 @@ defmodule Threadit.Users do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
-    |> case do
-      {:ok, %User{} = user} -> {:ok, hide_password(user)}
-      error -> error
-    end
+    |> hide_password()
   end
 
   @doc """
@@ -88,10 +81,7 @@ defmodule Threadit.Users do
     user
     |> User.changeset(attrs)
     |> Repo.update()
-    |> case do
-      {:ok, %User{} = user} -> {:ok, hide_password(user)}
-      error -> error
-    end
+    |> hide_password()
   end
 
   @doc """
@@ -109,10 +99,7 @@ defmodule Threadit.Users do
   def delete_user(%User{} = user) do
     user
     |> Repo.delete()
-    |> case do
-      {:ok, %User{} = user} -> {:ok, hide_password(user)}
-      error -> error
-    end
+    |> hide_password()
   end
 
   @doc """
@@ -128,7 +115,7 @@ defmodule Threadit.Users do
     User.changeset(user, attrs)
   end
 
-  def valid_password?(username, password) when is_binary(username) and is_binary(password) do
+  def valid_password?(username, password) do
     user = get_user_by_username(username, include_password: true)
 
     case user do
@@ -140,7 +127,9 @@ defmodule Threadit.Users do
     end
   end
 
-  defp hide_password(%User{} = user) do
-    %User{user | password: nil, hashed_password: nil}
+  defp hide_password({:ok, %User{} = user}) do
+    {:ok, %User{user | password: nil, hashed_password: nil}}
   end
+
+  defp hide_password(error), do: error
 end
