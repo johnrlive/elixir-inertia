@@ -2,7 +2,8 @@
   "name": "threadit",
   "version": "1.0.0",
   "description": "Threadit",
-  "main": "js/app.js",
+  "main": "js/app.tsx",
+  "type": "module",
   "dependencies": {
     "@inertiajs/react": "^2.0.0",
     "react": "^19.0.0",

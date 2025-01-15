@@ -7,7 +7,7 @@ const path = require("path")
 
 module.exports = {
   content: [
-    "./js/**/*.tsx",
+    "./js/**/*.{html,js,tsx,jsx}",
     "../lib/threadit_web.ex",
     "../lib/threadit_web/**/*.*ex"
   ],
