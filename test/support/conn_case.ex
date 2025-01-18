@@ -28,6 +28,7 @@ defmodule ThreaditWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import ThreaditWeb.ConnCase
+      import Inertia.Testing
     end
   end
 

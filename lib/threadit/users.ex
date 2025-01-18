@@ -115,15 +115,16 @@ defmodule Threadit.Users do
     User.changeset(user, attrs)
   end
 
-  def valid_password?(username, password) do
+  def valid_password(username, password) do
     user = get_user_by_username(username, include_password: true)
 
-    case user do
-      nil ->
+    with %User{} = user <- user,
+         true <- Bcrypt.verify_pass(password, user.hashed_password) do
+      {:ok, user}
+    else
+      _ ->
         Bcrypt.no_user_verify()
-
-      %User{} = user ->
-        Bcrypt.verify_pass(password, user.hashed_password)
+        {:error, "Invalid username or password"}
     end
   end
 

@@ -11,18 +11,27 @@ defmodule ThreaditWeb.Router do
     plug Inertia.Plug
   end
 
+  pipeline :ensure_authenticated do
+    plug ThreaditWeb.EnsureAuthenticated
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  # Public routes
   scope "/", ThreaditWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/login", AuthController, :login_page
+    post "/login", AuthController, :login
+    post "/logout", AuthController, :logout
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ThreaditWeb do
-  #   pipe_through :api
-  # end
+  # Authenticated routes
+  scope "/", ThreaditWeb do
+    pipe_through [:browser, :ensure_authenticated]
+
+    get "/", FeedController, :feed
+  end
 end

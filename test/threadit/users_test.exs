@@ -69,14 +69,14 @@ defmodule Threadit.UsersTest do
       assert %Ecto.Changeset{} = Users.change_user(user)
     end
 
-    test "valid_password?/2 returns true if the password is valid" do
+    test "valid_password/2 returns true if the password is valid" do
       user = user_fixture()
-      assert Users.valid_password?(user.username, "password")
+      assert {:ok, %User{}} = Users.valid_password(user.username, "password")
     end
 
-    test "valid_password?/2 returns false if the password is invalid" do
+    test "valid_password/2 returns false if the password is invalid" do
       user = user_fixture()
-      refute Users.valid_password?(user.username, "invalid_password")
+      assert {:error, _message} = Users.valid_password(user.username, "invalid_password")
     end
   end
 end
