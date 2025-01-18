@@ -8,7 +8,12 @@ defmodule ThreaditWeb.Endpoint do
     store: :cookie,
     key: "_threadit_key",
     signing_salt: "1ux4R/6s",
-    same_site: "Lax"
+    encryption_salt: "9d8vy7918y",
+    same_site: "Lax",
+    secure: true,
+    http_only: true,
+    # 1 week in seconds
+    max_age: 604_800
   ]
 
   socket "/live", Phoenix.LiveView.Socket,
