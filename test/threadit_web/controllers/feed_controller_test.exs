@@ -1,14 +1,7 @@
 defmodule ThreaditWeb.FeedControllerTest do
   use ThreaditWeb.ConnCase, async: true
 
-  import Threadit.UsersFixtures
-
-  setup do
-    user = user_fixture()
-    conn = session_conn() |> put_session(:user_id, user.id)
-
-    {:ok, conn: conn}
-  end
+  setup {Threadit.AuthFixtures, :create_and_login_user}
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

@@ -29,10 +29,6 @@ defmodule ThreaditWeb.ConnCase do
       import Phoenix.ConnTest
       import ThreaditWeb.ConnCase
       import Inertia.Testing
-
-      def session_conn() do
-        build_conn() |> init_test_session(%{})
-      end
     end
   end
 
