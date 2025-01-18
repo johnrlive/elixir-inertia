@@ -37,6 +37,11 @@ defmodule Threadit.Users do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_by_id(id) do
+    from(User, select: [:id, :username])
+    |> Repo.get(id)
+  end
+
   def get_user_by_username(username) do
     Repo.get_by(User, username: username)
   end

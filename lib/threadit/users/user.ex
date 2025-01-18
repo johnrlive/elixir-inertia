@@ -2,6 +2,7 @@ defmodule Threadit.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :username]}
   schema "users" do
     field :username, :string
     field :hashed_password, :string, load_in_query: false

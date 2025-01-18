@@ -1,6 +1,8 @@
 defmodule ThreaditWeb.EnsureAuthenticated do
   use ThreaditWeb, :controller
 
+  alias Threadit.Users
+
   def init(opts), do: opts
 
   def call(conn = %Plug.Conn{}, _opts) do
@@ -12,8 +14,11 @@ defmodule ThreaditWeb.EnsureAuthenticated do
         |> halt()
 
       user_id ->
+        user = Users.get_user_by_id(user_id)
+
         conn
-        |> assign(:user_id, user_id)
+        |> assign(:user, user)
+        |> assign_prop(:user, user)
     end
   end
 end
