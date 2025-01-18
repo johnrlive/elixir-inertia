@@ -13,25 +13,25 @@ export function Flash({ children }: { children: React.ReactNode }) {
   const { props } = usePage()
   const flash = props?.flash as FlashProps
 
-  console.log({ flash })
-
   useEffect(() => {
     if (flash.info || flash.error || flash.success) {
       setVisible(true)
       const timer = setTimeout(() => {
         setVisible(false)
-      }, 4000)
+      }, 3400)
       return () => clearTimeout(timer)
     }
   }, [flash])
 
   return (
     <main>
-      {visible && (
-        <p className={`mb-4 ${flashColor(flash)}`}>
-          {flash.info || flash.error || flash.success}
-        </p>
-      )}
+      <p
+        className={`mb-4 absolute top-5 right-5 text-white rounded p-4 ${flashColor(
+          flash
+        )} ${visible ? "slide-in" : "slide-out"}`}
+      >
+        {flash.info || flash.error || flash.success}
+      </p>
 
       {children}
     </main>
@@ -39,8 +39,8 @@ export function Flash({ children }: { children: React.ReactNode }) {
 }
 
 function flashColor(flash: FlashProps) {
-  if (flash.error) return "text-red-500"
-  if (flash.info) return "text-blue-500"
-  if (flash.success) return "text-green-500"
+  if (flash.error) return "bg-red-500"
+  if (flash.info) return "bg-blue-500"
+  if (flash.success) return "bg-green-500"
   return ""
 }
