@@ -26,7 +26,7 @@ export function Flash({ children }: { children: React.ReactNode }) {
   return (
     <main>
       <p
-        className={`mb-4 absolute top-5 right-5 text-white rounded p-4 ${flashColor(
+        className={`mb-4 absolute z-10 top-5 right-5 text-white rounded p-4 ${flashColor(
           flash
         )} ${visible ? "slide-in" : "slide-out"}`}
       >
