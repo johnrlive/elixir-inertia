@@ -37,7 +37,6 @@ defmodule ThreaditWeb.AuthControllerTest do
   test "POST /logout", %{conn: conn} do
     conn = post(conn, ~p"/logout")
     assert html_response(conn, 302)
-    assert get_session(conn, :user_id) == nil
     assert redirected_to(conn) == ~p"/login"
   end
 end

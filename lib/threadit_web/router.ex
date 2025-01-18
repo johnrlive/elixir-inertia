@@ -25,6 +25,10 @@ defmodule ThreaditWeb.Router do
 
     get "/login", AuthController, :login_page
     post "/login", AuthController, :login
+
+    get "/register", AuthController, :register_page
+    post "/register", AuthController, :register
+
     post "/logout", AuthController, :logout
   end
 

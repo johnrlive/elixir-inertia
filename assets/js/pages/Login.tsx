@@ -33,9 +33,11 @@ export default function Login() {
               type="text"
               placeholder="username"
               required
+              minLength={3}
               value={data.username}
               onChange={(e) => setData("username", e.target.value)}
             />
+
             <Input
               type="password"
               placeholder="password"
@@ -45,9 +47,11 @@ export default function Login() {
               onChange={(e) => setData("password", e.target.value)}
               required
             />
+
             <Button type="submit" disabled={loginDisabled}>
               Login
             </Button>
+
             <p className="text-center">
               <span className="text-gray-600">Don't have an account?</span>{" "}
               <Link href="/register" className="text-blue-600">
