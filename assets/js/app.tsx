@@ -11,7 +11,8 @@ createInertiaApp({
   resolve: async (name) => {
     const page = await import(`./pages/${name}.tsx`)
     page.default.layout =
-      page.default.layout || ((page) => <Flash children={page} />)
+      page.default.layout ||
+      ((page: React.ReactNode) => <Flash children={page} />)
     return page
   },
   setup({ App, el, props }) {

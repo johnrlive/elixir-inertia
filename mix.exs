@@ -67,7 +67,13 @@ defmodule Threadit.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
+      setup: [
+        "deps.get",
+        "ecto.setup",
+        "cmd npm install --prefix assets",
+        "assets.setup",
+        "assets.build"
+      ],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
@@ -77,7 +83,8 @@ defmodule Threadit.MixProject do
         "tailwind threadit --minify",
         "esbuild threadit --minify",
         "phx.digest"
-      ]
+      ],
+      check: ["format --check-formatted", "cmd npm run typecheck --prefix assets"]
     ]
   end
 end
