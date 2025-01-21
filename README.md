@@ -13,10 +13,9 @@ A Reddit/Threads-inspired social media platform built with [Phoenix](https://www
 
   - I recommend using [Postgres.app](https://postgresapp.com) on macOS
   - Alternatively, you can use Docker with the following command:
-    - `docker run --name threadit_dev -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=threadit_dev -p 5432:5432 -d postgres`
+    - `docker run --name threadit_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=threadit_dev -p 5432:5432 -d postgres`
 
-- Run `mix setup` to install the elixir dependencies and seed the database
 - Install [Node.js](https://nodejs.org/en/download/)
-- Install the javascript dependencies with `npm install --prefix assets`
+- Run `mix setup` to install the elixir and javascript dependencies and seed the database
 - Start the Phoenix server with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 - Now you can visit [`localhost:4000`](http://localhost:4000) from your browser
