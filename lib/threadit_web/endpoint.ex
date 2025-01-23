@@ -10,7 +10,6 @@ defmodule ThreaditWeb.Endpoint do
     signing_salt: "1ux4R/6s",
     encryption_salt: "9d8vy7918y",
     same_site: "Lax",
-    secure: true,
     http_only: true,
     # 1 week in seconds
     max_age: 604_800
