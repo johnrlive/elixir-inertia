@@ -19,7 +19,7 @@ export default function Register() {
       return
     }
 
-    post("/register")
+    post("/register", { preserveScroll: true })
   }
 
   const registerDisabled =
@@ -76,7 +76,11 @@ export default function Register() {
               <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
             )}
 
-            <Button type="submit" disabled={registerDisabled}>
+            <Button
+              type="submit"
+              disabled={registerDisabled}
+              loading={processing}
+            >
               Register
             </Button>
 

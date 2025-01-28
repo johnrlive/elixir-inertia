@@ -1,9 +1,15 @@
 import { Head } from "@inertiajs/react"
 import React from "react"
 
+import { Post } from "../components/Post"
 import { AuthenticatedLayout } from "../layouts/AuthenticatedLayout"
+import { Post as PostType } from "../types/post"
 
-export default function Feed() {
+type Props = {
+  posts: PostType[]
+}
+
+export default function Feed({ posts }: Props) {
   return (
     <AuthenticatedLayout>
       <Head>
@@ -13,8 +19,16 @@ export default function Feed() {
           content="See the latest posts from your friends"
         />
       </Head>
-      <div className="text-2xl">
-        <h1>Feed:</h1>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          Your Feed
+        </h1>
+
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </div>
       </div>
     </AuthenticatedLayout>
   )

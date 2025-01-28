@@ -1,10 +1,16 @@
 import { Link, usePage } from "@inertiajs/react"
 import React from "react"
 
-export function AuthenticatedLayout({ children }) {
+import { User } from "../types/user"
+
+type Props = {
+  children: React.ReactNode
+}
+
+export function AuthenticatedLayout({ children }: Props) {
   const {
     props: { user }
-  } = usePage<{ user: { id: string; username: string } }>()
+  } = usePage<{ user: User }>()
 
   return (
     <>
@@ -14,7 +20,7 @@ export function AuthenticatedLayout({ children }) {
         </Link>
 
         <Link href="/account" className="ml-auto mr-6">
-          {user.username}
+          @{user.username}
         </Link>
 
         <Link href="/logout" method="post" as="button">

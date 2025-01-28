@@ -2,11 +2,15 @@ defmodule Threadit.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Threadit.Posts.Post
+
   @derive {Jason.Encoder, only: [:id, :username]}
   schema "users" do
     field :username, :string
     field :hashed_password, :string, load_in_query: false
     field :password, :string, virtual: true
+
+    has_many :posts, Post
 
     timestamps(type: :utc_datetime)
   end

@@ -48,7 +48,7 @@ export default function Login() {
               required
             />
 
-            <Button type="submit" disabled={loginDisabled}>
+            <Button type="submit" disabled={loginDisabled} loading={processing}>
               Login
             </Button>
 
