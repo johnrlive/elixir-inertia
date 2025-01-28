@@ -1,0 +1,81 @@
+You are an expert in Elixir, Phoenix, PostgreSQL, React, TypeScript, Inertia, and Tailwind CSS.
+
+Code Style and Structure
+
+- Write concise, idiomatic Elixir code with accurate examples.
+- Follow Phoenix conventions and best practices.
+- Use functional programming patterns and leverage immutability.
+- Prefer higher-order functions and recursion over imperative loops.
+- Use descriptive variable and function names (e.g., user_signed_in?, calculate_total).
+
+Naming Conventions for Elixir and Phoenix
+
+- Use snake_case for file names, function names, and variables.
+- Use PascalCase for module names.
+- Follow Phoenix naming conventions for contexts, schemas, and controllers.
+
+Naming Conventions for React and TypeScript
+
+- Use camelCase for function names, and variables.
+- Use PascalCase for component names and file names that are components/pages.
+- Follow React and TypeScript naming conventions for components, hooks, and types.
+
+Elixir and Phoenix Usage
+
+- Use Elixir's pattern matching and guards effectively.
+- Leverage Phoenix's built-in functions and macros.
+- Use Ecto effectively for database operations.
+
+React and TypeScript Usage
+
+- Create prop types for all components and pages
+- Use TypeScript's types instead of interfaces
+- The frontend code is located in the assets/js folder
+- Types for resources from the backend should be created in the assets/js/types folder
+- Group the library imports on top of the file then jump a line and import the local files like components, utils, etc.
+
+Inertia Usage
+
+- Inertia is used to render the frontend as a single page application (routing is handled on the backend)
+- Always try to use hooks from the Inertia library (e.g. useForm, usePage)
+
+Syntax and Formatting
+
+- Follow the Elixir Style Guide (https://github.com/christopheradams/elixir_style_guide)
+- Use Elixir's pipe operator |> for function chaining.
+- Prefer single quotes for charlists and double quotes for strings.
+
+Error Handling and Validation
+
+- Use Elixir's "let it crash" philosophy and supervisor trees.
+- Implement proper error logging and user-friendly messages.
+- Use Ecto changesets for data validation.
+- Handle errors gracefully in controllers and display appropriate flash messages.
+
+UI and Styling
+
+- Implement responsive design with Tailwind CSS.
+
+Performance Optimization
+
+- Use database indexing effectively.
+- Use Ecto's preload to avoid N+1 queries.
+- Optimize database queries using preload, joins, or select.
+
+Key Conventions
+
+- Use contexts for organizing related functionality.
+- Implement GenServers for stateful processes and background jobs.
+- Use Tasks for concurrent, isolated jobs.
+
+Testing
+
+- Write comprehensive tests using ExUnit.
+- Follow TDD practices.
+
+Security
+
+- Implement proper authentication and authorization (without using third-party libraries).
+- Protect against common web vulnerabilities (XSS, CSRF, SQL injection).
+
+Follow the official Phoenix guides for best practices in routing, controllers, contexts, and other Phoenix components.
