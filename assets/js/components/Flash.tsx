@@ -24,17 +24,19 @@ export function Flash({ children }: { children: React.ReactNode }) {
   }, [flash])
 
   return (
-    <main>
-      <p
-        className={`mb-4 absolute z-10 top-5 right-5 text-white rounded p-4 ${flashColor(
-          flash
-        )} ${visible ? "slide-in" : "slide-out"}`}
-      >
-        {flash.info || flash.error || flash.success}
-      </p>
+    <div className="relative">
+      <div className="fixed z-50 top-0 left-0 w-full flex justify-end p-5 pointer-events-none">
+        <p
+          className={`text-white rounded p-4 pointer-events-auto ${flashColor(
+            flash
+          )} ${visible ? "slide-in" : "slide-out"}`}
+        >
+          {flash.info || flash.error || flash.success}
+        </p>
+      </div>
 
       {children}
-    </main>
+    </div>
   )
 }
 
@@ -44,3 +46,5 @@ function flashColor(flash: FlashProps) {
   if (flash.success) return "bg-green-500"
   return ""
 }
+
+export default Flash
