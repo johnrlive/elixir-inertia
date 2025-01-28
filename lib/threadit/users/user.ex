@@ -3,6 +3,7 @@ defmodule Threadit.Users.User do
   import Ecto.Changeset
 
   alias Threadit.Posts.Post
+  alias Threadit.Likes.Like
 
   @derive {Jason.Encoder, only: [:id, :username]}
   schema "users" do
@@ -11,6 +12,7 @@ defmodule Threadit.Users.User do
     field :password, :string, virtual: true
 
     has_many :posts, Post
+    has_many :likes, Like
 
     timestamps(type: :utc_datetime)
   end

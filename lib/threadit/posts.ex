@@ -19,9 +19,21 @@ defmodule Threadit.Posts do
 
   """
   def list_posts do
-    from(
-      p in Post,
+    from(p in Post,
       join: u in assoc(p, :user),
+      left_join: l in assoc(p, :likes),
+      group_by: [p.id, u.id],
+      select_merge: %{likes_count: count(l.id)},
+      preload: [user: u]
+    )
+    |> Repo.all()
+  end
+
+  def list_liked_posts(%User{} = user) do
+    from(p in Post,
+      join: l in assoc(p, :likes),
+      join: u in assoc(p, :user),
+      where: l.user_id == ^user.id,
       preload: [user: u]
     )
     |> Repo.all()
@@ -44,9 +56,13 @@ defmodule Threadit.Posts do
   def get_post!(id) do
     from(p in Post,
       join: u in assoc(p, :user),
+      left_join: l in assoc(p, :likes),
+      where: p.id == ^id,
+      group_by: [p.id, u.id],
+      select_merge: %{likes_count: count(l.id)},
       preload: [user: u]
     )
-    |> Repo.get!(id)
+    |> Repo.one!()
   end
 
   @doc """

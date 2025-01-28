@@ -7,4 +7,5 @@ export type Post = {
   inserted_at: string
   updated_at: string
   user: User
+  likes_count: number
 }

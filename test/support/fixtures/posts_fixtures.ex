@@ -6,20 +6,31 @@ defmodule Threadit.PostsFixtures do
 
   import Threadit.UsersFixtures
   alias Threadit.Posts
+  alias Threadit.Users.User
 
   @doc """
   Generate a post.
   """
-  def post_fixture(attrs \\ %{}) do
+  def post_fixture() do
     user = user_fixture()
 
     {:ok, post} =
-      attrs
-      |> Enum.into(%{
+      user
+      |> Posts.create_post(%{
         body: "some body",
         title: "some title"
       })
-      |> then(&Posts.create_post(user, &1))
+
+    Posts.get_post!(post.id)
+  end
+
+  def post_fixture(%User{} = user) do
+    {:ok, post} =
+      user
+      |> Posts.create_post(%{
+        body: "some body",
+        title: "some title"
+      })
 
     Posts.get_post!(post.id)
   end

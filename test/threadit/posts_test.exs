@@ -8,12 +8,20 @@ defmodule Threadit.PostsTest do
 
     import Threadit.PostsFixtures
     import Threadit.UsersFixtures
+    import Threadit.LikesFixtures
 
     @invalid_attrs %{title: nil, body: nil}
 
     test "list_posts/0 returns all posts" do
       post = post_fixture()
       assert Posts.list_posts() == [post]
+    end
+
+    test "list_liked_posts/1 returns all liked posts" do
+      user = user_fixture()
+      post = post_fixture()
+      like_fixture(user, post)
+      assert Posts.list_liked_posts(user) == [post]
     end
 
     test "get_post!/1 returns the post with given id" do

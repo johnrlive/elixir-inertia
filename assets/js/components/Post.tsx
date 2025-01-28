@@ -13,24 +13,30 @@ export function Post({ post }: Props) {
 
   return (
     <article className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 max-w-2xl mx-auto mb-6">
-      <Link href={`/posts/${post.id}`}>
-        <header className="mb-4">
+      <header className="mb-4">
+        <Link href={`/posts/${post.id}`} as="button">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             {post.title}
           </h2>
-          <div className="flex items-center text-sm text-gray-500">
-            <span className="font-medium text-blue-600">
-              @{post.user.username}
-            </span>
-            <span className="mx-2">•</span>
-            <time dateTime={post.inserted_at}>{date}</time>
-          </div>
-        </header>
+        </Link>
+        <div className="flex items-center text-sm text-gray-500">
+          <span className="font-medium text-blue-600">
+            @{post.user.username}
+          </span>
+          <span className="mx-2">•</span>
+          <time dateTime={post.inserted_at}>{date}</time>
+          <span className="mx-2">•</span>
 
-        <div className="prose prose-slate max-w-none">
-          <p className="text-gray-700 whitespace-pre-wrap">{post.body}</p>
+          <div className="flex items-center gap-1">
+            <span className="hero-heart-solid bg-red-500 size-4"></span>
+            <span>{post.likes_count}</span>
+          </div>
         </div>
-      </Link>
+      </header>
+
+      <div className="prose prose-slate max-w-none">
+        <p className="text-gray-700 whitespace-pre-wrap">{post.body}</p>
+      </div>
     </article>
   )
 }
