@@ -2,13 +2,18 @@ import Config
 
 # Configure your database
 config :threadit, Threadit.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "threadit_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  database: Path.expand("../storage/dev.db", Path.dirname(__ENV__.file)),
+  pool_size: 5,
+  show_sensitive_data_on_connection_error: true
+
+# config :threadit, Threadit.Repo,
+#   username: "postgres",
+#   password: "postgres",
+#   hostname: "localhost",
+#   database: "threadit_dev",
+#   stacktrace: true,
+#   show_sensitive_data_on_connection_error: true,
+#   pool_size: 10
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
